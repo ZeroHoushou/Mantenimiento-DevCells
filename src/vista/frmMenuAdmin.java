@@ -49,6 +49,8 @@ public class frmMenuAdmin extends javax.swing.JFrame {
         menuArchivo1 = new javax.swing.JMenu();
         menuEstadosRecepcion = new javax.swing.JMenuItem();
         menuMarcas = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -153,6 +155,18 @@ public class frmMenuAdmin extends javax.swing.JFrame {
 
         jMenuBar1.add(menuArchivo1);
 
+        jMenu1.setText("Productos");
+
+        jMenuItem1.setText("Gestión");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -201,6 +215,11 @@ public class frmMenuAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_menuArchivo1ActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        frmPrincipal principal = new frmPrincipal();
+        principal.show();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -238,7 +257,9 @@ public class frmMenuAdmin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     public javax.swing.JMenuItem menuAddUser;
     public javax.swing.JMenu menuArchivo;
