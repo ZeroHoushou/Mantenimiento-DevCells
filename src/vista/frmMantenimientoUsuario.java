@@ -56,6 +56,7 @@ public class frmMantenimientoUsuario extends javax.swing.JFrame {
         txtRepContraseña = new javax.swing.JPasswordField();
         jCheckBox1 = new javax.swing.JCheckBox();
         btnModificar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -138,6 +139,14 @@ public class frmMantenimientoUsuario extends javax.swing.JFrame {
             }
         });
 
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ordendetrabajo/edit.png"))); // NOI18N
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -154,7 +163,8 @@ public class frmMantenimientoUsuario extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jCheckBox1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -172,12 +182,14 @@ public class frmMantenimientoUsuario extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
+                        .addGap(18, 18, 18)
                         .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jCheckBox1))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -272,6 +284,10 @@ public class frmMantenimientoUsuario extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cboPerfilActionPerformed
 
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
     private boolean validar() {
         boolean resultado = false;
         if (
@@ -300,6 +316,25 @@ public class frmMantenimientoUsuario extends javax.swing.JFrame {
         String[] encabezado = new Usuario().getCabecera();
         DefaultTableModel modelo = new DefaultTableModel(datos, encabezado);
         tblUsuarios.setModel(modelo);
+    }
+    /*
+        Aqui se creara el evento al componente que permitira eliminar
+        al usuario deseado.
+    */
+    private void btnEliminarPerformed(java.awt.event.ActionEvent evt) {
+        if (usuario != null) {
+            if (txtContraseña.getText().equalsIgnoreCase(txtRepContraseña.getText())) {
+
+                usuario = new Usuario(usuario.getCodigo(), cboPerfil.getSelectedItem().toString(), txtUsuario.getText(), txtContraseña.getText(), txtEmail.getText(), jCheckBox1.isSelected(), usuario.isConectado());
+
+                System.out.println(usuario.eliminar());
+                System.out.println(usuario);
+                JOptionPane.showMessageDialog(this, "Usuario Eliminado", "Eliminar Usuario", JOptionPane.INFORMATION_MESSAGE);
+                usuario = null;
+                limpiarControles();
+                btnModificar.setEnabled(true);
+            }
+        }
     }
     /**
      * @param args the command line arguments
@@ -342,8 +377,11 @@ public class frmMantenimientoUsuario extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    //Se añadiran el boton para eliminar usuarios, de acuerdo a los componentes
+    //de la vista 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnSalir;
