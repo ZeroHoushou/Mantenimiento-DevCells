@@ -47,7 +47,7 @@ public class ControladorEditarGuiaVenta {
                         String texto2 = vista.tblLista.getValueAt(i, 3).toString();
                         int cant = Integer.parseInt(texto2);
                         GuiaVentaporProducto ventaporproducto = new GuiaVentaporProducto(venta,texto,cant);
-                        System.out.println(ventaporproducto.insertar());
+                        System.out.println(ventaporproducto.InsertGuideSale());
                     }
                 
                 }
@@ -261,7 +261,7 @@ public class ControladorEditarGuiaVenta {
                 if(vista.txtNumerodeGuia.getText().length()!=0){
                     int id = Integer.parseInt(vista.txtNumerodeGuia.getText());
                     GuiadeVenta guiaVenta = new GuiadeVenta(id);
-                    guiaVenta.consultar();
+                    guiaVenta.ConsultGuideSale();
                     vista.txtNombre.setText(guiaVenta.getCliente().getNombre());
                     vista.txtDni.setText(guiaVenta.getCliente().getDni());
                     vista.txtCelular.setText(guiaVenta.getCliente().getNumeroDeCelular());

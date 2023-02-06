@@ -337,7 +337,7 @@ public class frmBuscarGuiaVentas extends javax.swing.JFrame {
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
         if(lblId.getText().length()!=0){
             GuiadeVenta venta = new GuiadeVenta(Integer.parseInt(lblId.getText()));
-        System.out.println(venta.consultar());
+        System.out.println(venta.ConsultGuideSale());
         String mensaje = "<div style='width: 400px; margin: 100px auto; background: blanchedalmond; text-align: center;'>"
                 + "<h1>Tu nota de venta de DevCell</h1>"
                 + "<p>"+new Date()+"</p>"
@@ -382,7 +382,7 @@ public class frmBuscarGuiaVentas extends javax.swing.JFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         if(txtNroGuia.getText().length()!=0){
             GuiadeVenta venta = new GuiadeVenta(Integer.parseInt(txtNroGuia.getText()));
-            System.out.println(venta.consultar());
+            System.out.println(venta.ConsultGuideSale());
             if(venta.getCliente() != null){
                 lblCelular.setText(venta.getCliente().getNumeroDeCelular());
                 lblCliente.setText(venta.getCliente().getNombre());

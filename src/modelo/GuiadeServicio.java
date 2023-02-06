@@ -67,14 +67,14 @@ public class GuiadeServicio {
     public int[] getDatosPie2D(){
         Conexion con = new Conexion();
         String SQL = "select * from guiaservicio";   //Buscar nick's que empiezen con "filtro"
-        ResultSet resultado=con.consultar(SQL);
+        ResultSet resultado=con.ConsultConnection(SQL);
         int[] datos = new int[5];
         Arrays.fill(datos, 0);
         try{
             while(resultado.next()){
                 int i = resultado.getInt("Celular_idCelular");
                 Celular celular = new Celular(i);
-                celular.consultar();
+                celular.ConsultPhone();
                 if(celular.isConChip()){
                     datos[0]++;
                 }if(celular.isConMicroSD()){
@@ -112,7 +112,7 @@ public class GuiadeServicio {
         Conexion conexion = new Conexion();
         String SQL = "select MAX(idGuiaServicio) as idGuiaServicio FROM GuiaServicio";
         try{
-            ResultSet resultado = conexion.consultar(SQL);
+            ResultSet resultado = conexion.ConsultConnection(SQL);
             if(resultado.next()){
                 if(resultado.getInt(1)!= -1){
                     this.id=resultado.getInt(1)+1;
@@ -125,11 +125,11 @@ public class GuiadeServicio {
         }
     }
     
-    public String insertar(){
+    public String InsertGuideService(){
         
         Conexion conexion = new Conexion();
         String SQL = "insert into guiaservicio (idguiaServicio,total,descripAdicional,Cliente_idCliente,Celular_idCelular) values ('"+this.id+"','"+this.total+"','"+this.descripcionAdicional+"','"+this.cliente.getId()+"','"+this.celular.getId()+"')";
-        return conexion.ejecutar(SQL);
+        return conexion.ExecuteQuery(SQL);
     }
     
     
@@ -139,12 +139,12 @@ public class GuiadeServicio {
         return "GuiadeServicio{" + "id=" + id + ", total=" + total + ", descripcionAdicional=" + descripcionAdicional + ", celular=" + celular + ", cliente=" + cliente + '}';
     }
     
-    public void BuscarGuiadeServicio(){
+    public void FindGuideService(){
         Conexion conectar = new Conexion();
         
         String SQL = "{call get_guiaservicio_by_id(?)}";
         CallableStatement stmt = null;
-        try(Connection conn = conectar.conectarMySQL() ){
+        try(Connection conn = conectar.connectMySQL() ){
             
             stmt = conn.prepareCall(SQL);
             stmt.setInt(1,this.id);
@@ -166,7 +166,7 @@ public class GuiadeServicio {
         Cliente client = null;
         String SQL = "{call get_guiaservicio_by_id(?)}";
         CallableStatement stmt = null;
-        try(Connection conn = conectar.conectarMySQL() ){
+        try(Connection conn = conectar.connectMySQL() ){
             stmt = conn.prepareCall(SQL);
             stmt.setInt(1,this.id);
             ResultSet rs = stmt.executeQuery();
@@ -186,7 +186,7 @@ public class GuiadeServicio {
         Celular cell = null;
         String SQL = "{call get_guiaservicio_by_id(?)}";
         CallableStatement stmt = null;
-        try(Connection conn = conectar.conectarMySQL() ){
+        try(Connection conn = conectar.connectMySQL() ){
             stmt = conn.prepareCall(SQL);
             stmt.setInt(1,this.id);
             ResultSet rs = stmt.executeQuery();
@@ -203,14 +203,14 @@ public class GuiadeServicio {
     public int[] getMarcasPie2D(){
         Conexion con = new Conexion();
         String SQL = "select * from guiaservicio";   //Buscar nick's que empiezen con "filtro"
-        ResultSet resultado=con.consultar(SQL);
+        ResultSet resultado=con.ConsultConnection(SQL);
         int[] datos = new int[4];
         Arrays.fill(datos, 0);
         try{
             while(resultado.next()){
                 int i = resultado.getInt("Celular_idCelular");
                 Celular celular = new Celular(i);
-                celular.consultar();
+                celular.ConsultPhone();
                 if(celular.getMarca().equalsIgnoreCase("HUAWEI")){
                     datos[0]++;
                 }if(celular.getMarca().equalsIgnoreCase("LG")){
@@ -232,7 +232,7 @@ public class GuiadeServicio {
         String SQL = "{call updated_guiaservicio_descripcion(?,?)}";
         CallableStatement stmt = null;
         
-        try(Connection conn = conectar.conectarMySQL()){
+        try(Connection conn = conectar.connectMySQL()){
             stmt = conn.prepareCall(SQL);
             stmt.setInt(1,this.id);
             stmt.setString(2, this.descripcionAdicional);

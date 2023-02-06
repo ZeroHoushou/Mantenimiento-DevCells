@@ -36,17 +36,17 @@ public class GuiadeVenta {
     public String insertar(){
         Conexion conexion = new Conexion();
         String SQL = "insert into guiaventa (idguiaventa,total,igv,cliente_idcliente) values ('"+this.id+"','"+this.total+"','"+this.igv+"','"+this.cliente.getId()+"')";
-        return conexion.ejecutar(SQL);
+        return conexion.ExecuteQuery(SQL);
     }
     @Override
     public String toString() {
         return "GuiaVenta{" + "id=" + id + ", total=" + total + ", igv=" + igv + ", cliente=" + cliente + '}';
     }
     
-    public boolean consultar() {
+    public boolean ConsultGuideSale() {
         Conexion conexion = new Conexion();
         String SQL = "select * from guiaventa where idguiaventa='"+this.id+"'";
-        ResultSet resultado = conexion.consultar(SQL);
+        ResultSet resultado = conexion.ConsultConnection(SQL);
         int fk_cliente;
         try {
             if (resultado.next()){ 
@@ -54,7 +54,7 @@ public class GuiadeVenta {
             this.igv=resultado.getFloat("igv");
             fk_cliente = resultado.getInt("cliente_idcliente");
             this.cliente = new Cliente(fk_cliente);
-            this.cliente.consultar();
+            this.cliente.ConsultClient();
             return true;
             }else{
                 return false;
@@ -69,7 +69,7 @@ public class GuiadeVenta {
         Conexion conexion = new Conexion();
         String SQL = "select MAX(idguiaventa) as idGuiaVenta FROM guiaventa";
         try{
-            ResultSet resultado = conexion.consultar(SQL);
+            ResultSet resultado = conexion.ConsultConnection(SQL);
             
             if(resultado.next()){
                 if(resultado.getInt(1)!= -1){

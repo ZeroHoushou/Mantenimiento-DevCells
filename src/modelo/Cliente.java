@@ -50,7 +50,7 @@ public class Cliente {
         Conexion conexion = new Conexion();
         String SQL = "select MAX(idCliente) as idCliente FROM cliente";
         try{
-            ResultSet resultado = conexion.consultar(SQL);
+            ResultSet resultado = conexion.ConsultConnection(SQL);
             
             if(resultado.next()){
                 if(resultado.getInt(1)!= -1){
@@ -66,14 +66,14 @@ public class Cliente {
     public String insertar(){
         Conexion conexion = new Conexion();
         String SQL = "insert into cliente (idcliente,nombre,dni,nroCelular,correo) values ('"+this.id+"','"+this.nombre+"','"+this.dni+"','"+this.numeroDeCelular+"','"+this.correo+"')";
-        return conexion.ejecutar(SQL);
+        return conexion.ExecuteQuery(SQL);
     }
     
-    public boolean consultar() {
+    public boolean ConsultClient() {
         Conexion conexion = new Conexion();
         String SQL = "select * from cliente where idcliente='"+this.id+"'";
-        ResultSet resultado = conexion.consultar(SQL);
-        int fk_cliente;
+        ResultSet resultado = conexion.ConsultConnection(SQL);
+        
         try {
             if (resultado.next()){ 
             this.nombre=resultado.getString("nombre");
@@ -95,7 +95,7 @@ public class Cliente {
         String SQL = "{call updated_cliente_nrocelular(?,?)}";
         CallableStatement stmt = null;
         
-        try(Connection conn = conectar.conectarMySQL()){
+        try(Connection conn = conectar.connectMySQL()){
             stmt = conn.prepareCall(SQL);
             stmt.setInt(1,this.id);
             stmt.setString(2, this.numeroDeCelular);

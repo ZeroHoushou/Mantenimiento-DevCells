@@ -50,10 +50,10 @@ public class GuiaVentaporProducto {
         }
     }*/
     
-    public String insertar(){
+    public String InsertGuideSale(){
         Conexion conexion = new Conexion();
         String SQL = "insert into guiaventaporproducto (guiaventa_idguiaventa,producto_codigo, cantidad) values ('"+this.venta.getId()+"','"+this.accesorio+"','"+this.cantidad+"')";
-        return conexion.ejecutar(SQL);
+        return conexion.ExecuteQuery(SQL);
     }
     /*
     public boolean consultar() {
@@ -81,7 +81,7 @@ public class GuiaVentaporProducto {
      public String[][] getDatos(){
         Conexion con = new Conexion();
         String SQL = "select * from guiaventaporproducto where guiaventa_idguiaventa='"+this.venta.getId()+"'";   //Buscar nick's que empiezen con "filtro"
-        ResultSet resultado=con.consultar(SQL);
+        ResultSet resultado=con.ConsultConnection(SQL);
         String[][] datos = null;
         try{
             resultado.last();
@@ -91,7 +91,7 @@ public class GuiaVentaporProducto {
             while(resultado.next()){
                 datos[i][0]= resultado.getString("producto_codigo");
                 Accesorio producto = new Accesorio(datos[i][0]);
-                System.out.println(producto.consultar());
+                System.out.println(producto.ConsultProduct());
                 datos[i][1]= producto.getNombre();
                 datos[i][2]= String.valueOf(producto.getPrecio());
                 datos[i][3]= resultado.getString("cantidad");

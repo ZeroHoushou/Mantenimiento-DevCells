@@ -53,7 +53,7 @@ public class ControladorRegistrarCliente {
                 
                 CallableStatement stmt = null;
                 String[] datos = null;
-            try(Connection conn = con.conectarMySQL() ){
+            try(Connection conn = con.connectMySQL() ){
            
                 stmt = conn.prepareCall(SQL);
                 stmt.setString(1,vista.txtDni.getText());
@@ -97,7 +97,7 @@ public class ControladorRegistrarCliente {
                 
                     CallableStatement stmt = null;
                     //String[] datos = null;
-                    try(Connection conn = con.conectarMySQL() ){
+                    try(Connection conn = con.connectMySQL() ){
            
                         stmt = conn.prepareCall(SQL);
                         stmt.setString(1, vista.txtNombre.getText());
@@ -126,7 +126,7 @@ public class ControladorRegistrarCliente {
         
                 CallableStatement stmt = null;
                 String[] datos = null;
-            try(Connection conn = con.conectarMySQL() ){
+            try(Connection conn = con.connectMySQL() ){
            
                 stmt = conn.prepareCall(SQL);
             
@@ -225,7 +225,7 @@ public class ControladorRegistrarCliente {
                 
             CallableStatement stmt = null;
             //String[] datos = null;
-            try(Connection conn = con.conectarMySQL() ){
+            try(Connection conn = con.connectMySQL() ){
            
                 stmt = conn.prepareCall(SQL);
                 stmt.setString(1,vista.txtDni.getText());

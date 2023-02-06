@@ -24,7 +24,7 @@ public class ControladorEditarGuiaServicio {
                     GuiadeServicio guia = new GuiadeServicio(Integer.parseInt(vista.txtNumeroGuia.getText()));
                     Cliente client = guia.BuscarGServicio();
                     Celular cell = guia.BuscarGServicioC();
-                    guia.BuscarGuiadeServicio();
+                    guia.FindGuideService();
                     if(cell != null){
                     //vista.txtNumeroGuia.setEditable(true);
                     vista.txtnombre.setText(client.getNombre());

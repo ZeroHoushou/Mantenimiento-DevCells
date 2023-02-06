@@ -99,13 +99,13 @@ public class Celular {
         Conexion conexion = new Conexion();
         String SQL = "insert into celular (idcelular,marca,modelo,falla,conChip,conMicroSD,noPrende,caidaAgua,garantia) values ('"+this.id+"','"+this.marca+"','"+this.modelo+"','"+this.falla+"',"+this.conChip+","+
                                                                                     this.conMicroSD+","+this.noPrende+","+this.caidaDeAgua+","+this.garantía+")";
-        return conexion.ejecutar(SQL);
+        return conexion.ExecuteQuery(SQL);
     }
     
-     public boolean consultar() {
+     public boolean ConsultPhone() {
         Conexion conexion = new Conexion();
         String SQL = "select * from celular where idcelular='"+this.id+"'";
-        ResultSet resultado = conexion.consultar(SQL);
+        ResultSet resultado = conexion.ConsultConnection(SQL);
         try {
             if (resultado.next()){ 
             this.marca = resultado.getString("marca");
@@ -130,7 +130,7 @@ public class Celular {
         Conexion conexion = new Conexion();
         String SQL = "select MAX(idCelular) as idCelular FROM celular";
         try{
-            ResultSet resultado = conexion.consultar(SQL);
+            ResultSet resultado = conexion.ConsultConnection(SQL);
             
             if(resultado.next()){
                 if(resultado.getInt(1)!= -1){
@@ -149,7 +149,7 @@ public class Celular {
         String SQL = "{call updated_celular_boolean(?,?,?,?,?,?)}";
         CallableStatement stmt = null;
         
-        try(Connection conn = conectar.conectarMySQL()){
+        try(Connection conn = conectar.connectMySQL()){
             stmt = conn.prepareCall(SQL);
             stmt.setInt(1,this.id);
             stmt.setBoolean(2, this.conChip);

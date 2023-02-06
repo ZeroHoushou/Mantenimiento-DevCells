@@ -37,7 +37,7 @@ public class ControladorAñadirProducto {
             if(validar()){
                 Accesorio producto = new Accesorio(vista.txtCodigo.getText(), vista.txtNombre.getText(), Integer.parseInt(vista.txtCantidad.getText()), 
                                                 vista.txtDescripcion.getText(), Float.parseFloat(vista.txtPrecio.getText()));
-                producto.insert2();
+                producto.postProducts();
                 
                 JOptionPane.showMessageDialog(null, "Operación exitosa");
                 limpiar();
@@ -131,7 +131,7 @@ public class ControladorAñadirProducto {
         
         CallableStatement stmt = null;
         //String[][] datos = null;
-        try(Connection conn = con.conectarMySQL() ){
+        try(Connection conn = con.connectMySQL() ){
            
             stmt = conn.prepareCall(SQL);
             
@@ -143,7 +143,7 @@ public class ControladorAñadirProducto {
             while(rs.next()){
                 datos[i][0]= rs.getString("codigo");
                 Accesorio producto = new Accesorio(datos[i][0]);
-                System.out.println(producto.consultar());
+                System.out.println(producto.ConsultProduct());
                 datos[i][1]= producto.getNombre();               
                 datos[i][2]= String.valueOf(producto.getDescripcion());
                 datos[i][3]= rs.getString("cantidad");

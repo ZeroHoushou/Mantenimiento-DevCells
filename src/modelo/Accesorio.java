@@ -63,11 +63,11 @@ public class Accesorio {
         return id;
     }
     */
-    public String insertar(){
+    public String InsertProductQuery(){
         Conexion conexion = new Conexion();
         String SQL = "insert into producto (codigo,nombre,cantidad,precio_unitario,descripcion) values ('"+this.codigo+"','"+this.nombre+"','"+this.cantidad+"','"+this.precio+"','"+
                                                                                     this.descripcion+"')";
-        return conexion.ejecutar(SQL);
+        return conexion.ExecuteQuery(SQL);
     }
     /*
     public String insertar(){
@@ -77,10 +77,10 @@ public class Accesorio {
         return conexion.ejecutar(SQL);
     }*/
     
-       public boolean consultar() {
+       public boolean ConsultProduct() {
         Conexion conexion = new Conexion();
         String SQL = "select * from producto where codigo='"+this.codigo+"'";
-        ResultSet resultado = conexion.consultar(SQL);
+        ResultSet resultado = conexion.ConsultConnection(SQL);
         try {
             if (resultado.next()){ 
             this.nombre=resultado.getString("nombre");
@@ -103,7 +103,7 @@ public class Accesorio {
         String SQL = "select *  FROM producto WHERE codigo='"+codigo+"'";
         //String[] datos = new String[6];
         try{
-            ResultSet resultado = conexion.consultar(SQL);
+            ResultSet resultado = conexion.ConsultConnection(SQL);
             if(resultado.next()){
                 //data[0]=resultado.getString(1);//id
                 data[0]=resultado.getString(1);//codigo
@@ -128,7 +128,7 @@ public class Accesorio {
         String SQL = "{call get_producto_by_codigo(?)}";
         CallableStatement stmt = null;
         
-        try(Connection conn = conectar.conectarMySQL() ){
+        try(Connection conn = conectar.connectMySQL() ){
             //System.out.println("Creando sentencia...");
             stmt = conn.prepareCall(SQL);
             stmt.setString(1,codigo);
@@ -152,12 +152,12 @@ public class Accesorio {
         return data;
     }
     
-    public void insert2(){
+    public void postProducts(){
         Conexion conectar = new Conexion();
         String SQL = "{call insert_producto(?,?,?,?,?)}";
         CallableStatement stmt = null;
         
-        try(Connection conn = conectar.conectarMySQL()){
+        try(Connection conn = conectar.connectMySQL()){
             stmt = conn.prepareCall(SQL);
             stmt.setString(1,this.codigo);
             stmt.setString(2,this.nombre);

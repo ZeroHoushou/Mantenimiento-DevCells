@@ -50,7 +50,7 @@ public class ControladorGuiadeServicio {
                            celular, cliente);
                     System.out.println(cliente.insertar());
                     System.out.println(celular.insertar());
-                    System.out.println(guia.insertar());
+                    System.out.println(guia.InsertGuideService());
                     vista.dispose();
                     
                     //frmMenu frmmenu = new frmMenu();

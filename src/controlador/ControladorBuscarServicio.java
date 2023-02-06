@@ -159,7 +159,7 @@ public class ControladorBuscarServicio {
         //String[] datosguia = new String[13];
         String SQL = "{call get_guiaservicio_by_id(?)}";
         CallableStatement stmt = null;
-        try(Connection conn = conectar.conectarMySQL() ){
+        try(Connection conn = conectar.connectMySQL() ){
             //System.out.println("Creando sentencia...");
             stmt = conn.prepareCall(SQL);
             stmt.setInt(1,idguia);

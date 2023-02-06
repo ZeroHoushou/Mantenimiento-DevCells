@@ -48,10 +48,47 @@ public class Usuario {
         this.conectado = conectado;
     }
     
+    public String[] getCabecera() {
+        return cabecera;
+    }
+
+    public String getPerfil() {
+        return perfil;
+    }
+
+    public Boolean getEstado() {
+        return estado;
+    }
+    
+        public Boolean isConectado() {
+        return conectado;
+    }
+    
+    public String getLogin(){
+        return username;
+    }
+
+    public String getContraseña() {
+        return contraseña;
+    }
+    
+    public String getEmail() {
+        return email;
+    }
+    
+    public int getCodigo() {
+        return codigo;
+    }
+    
+    @Override
+    public String toString() {
+        return "Usuario{" + "codigo=" + codigo + ", username=" + username + ", contrase\u00f1a=" + contraseña + ", email=" + email + ", conectado=" + conectado + '}';
+    }
+    
     public String[][] getDatos(){
         Conexion con = new Conexion();
         String SQL = "select * from usuario where estado="+true+"";   //Buscar nick's que empiezen con "filtro"
-        ResultSet resultado=con.consultar(SQL);
+        ResultSet resultado=con.ConsultConnection(SQL);
         String[][] datos = null;
         try{
             resultado.last();
@@ -70,24 +107,12 @@ public class Usuario {
         }
         return datos;
     }
-
-    public String[] getCabecera() {
-        return cabecera;
-    }
-
-    public String getPerfil() {
-        return perfil;
-    }
-
-    public Boolean getEstado() {
-        return estado;
-    }
     
-    public String insertar(){
+    public String InsertUser(){
         Conexion conexion = new Conexion();
         String SQL = "insert into usuario (codigo,username,contraseña,email,conectado,perfil,estado) values "
                 + "('"+this.codigo+"','"+this.username+"','"+this.contraseña+"','"+this.email+"',"+this.conectado+",'"+this.perfil+"',"+this.estado+")";
-        return conexion.ejecutar(SQL);
+        return conexion.ExecuteQuery(SQL);
     }
     public Usuario loguear(){
         Usuario result = null;
@@ -95,7 +120,7 @@ public class Usuario {
         String SQL = "select * from usuario where username='"+this.username+"' and contraseña='"+this.contraseña+"' and conectado="+false;
         
         try{
-            ResultSet resultado = conexion.consultar(SQL);
+            ResultSet resultado = conexion.ConsultConnection(SQL);
             
             if(resultado.next()){
                 this.codigo=resultado.getInt("codigo");
@@ -105,7 +130,7 @@ public class Usuario {
                 this.email=resultado.getString("email");
                 this.conectado = Boolean.TRUE;
                 this.estado = resultado.getBoolean("estado");
-                actualizar();
+                UpdateUser();
                 result = new Usuario(codigo, perfil, username, contraseña, this.email, estado, conectado);
             }
         }catch(SQLException e){
@@ -120,7 +145,7 @@ public class Usuario {
         String SQL = "select * from usuario where email='"+email+"'";
         
         try{
-            ResultSet resultado = conexion.consultar(SQL);
+            ResultSet resultado = conexion.ConsultConnection(SQL);
             
             if(resultado.next()){
                 this.codigo=resultado.getInt("codigo");
@@ -145,7 +170,7 @@ public class Usuario {
         String SQL = "select * from usuario where username='"+username+"'";
         
         try{
-            ResultSet resultado = conexion.consultar(SQL);
+            ResultSet resultado = conexion.ConsultConnection(SQL);
             
             if(resultado.next()){
                 this.codigo=resultado.getInt("codigo");
@@ -167,7 +192,7 @@ public class Usuario {
         Conexion conexion = new Conexion();
         String SQL = "select MAX(codigo) as codigo FROM usuario";
         try{
-            ResultSet resultado = conexion.consultar(SQL);
+            ResultSet resultado = conexion.ConsultConnection(SQL);
             
             if(resultado.next()){
                 if(resultado.getString(1)!=null){
@@ -186,21 +211,21 @@ public class Usuario {
         if(isConectado()){
             result = true;
             this.conectado = Boolean.FALSE;
-            actualizar();
+            UpdateUser();
         }
         return result;
     }
     
-    public String eliminar() {
+    public String DeleteUser() {
         Conexion conexion = new Conexion();
         String SQL = "delete from usuario where codigo='"+this.codigo+"'";
-        return conexion.ejecutar(SQL);
+        return conexion.ExecuteQuery(SQL);
     }
     
-    public boolean consultar() {
+    public boolean ConsultUser() {
         Conexion conexion = new Conexion();
         String SQL = "select * from usuario where codigo='"+this.codigo+"'";
-        ResultSet resultado = conexion.consultar(SQL);
+        ResultSet resultado = conexion.ConsultConnection(SQL);
         try {
             if (resultado.next()){ 
                 this.codigo=resultado.getInt("codigo");
@@ -220,15 +245,12 @@ public class Usuario {
         }
     }
 
-    public int getCodigo() {
-        return codigo;
-    }
-    
-    public String actualizar() {
+
+    public String UpdateUser() {
         Conexion conexion = new Conexion();
         String SQL = "update usuario set username='"+this.username
         +"', contraseña='"+this.contraseña+"', email='"+this.email+"', conectado="+this.conectado+", perfil='"+this.perfil+"', estado="+this.estado+"  where codigo='"+this.codigo+"'";
-        return conexion.ejecutar(SQL);
+        return conexion.ExecuteQuery(SQL);
     }
     /*
     public String[][] buscar(String filtro){
@@ -256,28 +278,14 @@ public class Usuario {
     
     }
     */
-    public Boolean isConectado() {
-        return conectado;
-    }
-    
-    public String getLogin(){
-        return username;
-    }
 
-    public String getContraseña() {
-        return contraseña;
-    }
-    
-    public String getEmail() {
-        return email;
-    }
 
     public void setEmail(String email) throws InvalidEmailException {
         Conexion conexion = new Conexion();
         String SQL = "select * from usuario where email='"+email+"'";
         
         try{
-            ResultSet resultado = conexion.consultar(SQL);
+            ResultSet resultado = conexion.ConsultConnection(SQL);
             
             if((email.endsWith("@hotmail.com")||email.endsWith("@gmail.com")||email.endsWith("@unmsm.edu.pe")) && !resultado.next()){
                 this.email = email;
@@ -302,7 +310,7 @@ public class Usuario {
         String SQL = "select * from usuario where username='"+username+"'";
         
         try{
-            ResultSet resultado = conexion.consultar(SQL);
+            ResultSet resultado = conexion.ConsultConnection(SQL);
              
             if(resultado.next()){
                 throw new InvalidUsernameException(username);
@@ -314,9 +322,5 @@ public class Usuario {
         }
     }
 
-    @Override
-    public String toString() {
-        return "Usuario{" + "codigo=" + codigo + ", username=" + username + ", contrase\u00f1a=" + contraseña + ", email=" + email + ", conectado=" + conectado + '}';
-    }
 
 }

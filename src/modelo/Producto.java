@@ -45,7 +45,7 @@ public class Producto {
         Conexion conexion = new Conexion();
         ProductoDAO productoDAO = new ProductoDAO(this.id,
         this.nombre, this.cantidad, this.precio);
-        String result = conexion.ejecutar(productoDAO.insertar());
+        String result = conexion.ExecuteQuery(productoDAO.insertar());
         setId();
         return result;
     }
@@ -53,13 +53,13 @@ public class Producto {
     public String eliminar() {
         Conexion conexion = new Conexion();
         ProductoDAO productoDAO = new ProductoDAO(this.id);
-        return conexion.ejecutar(productoDAO.eliminar());
+        return conexion.ExecuteQuery(productoDAO.eliminar());
     }
     
-    public boolean consultar() {
+    public boolean ConsultProduct() {
         Conexion conexion = new Conexion();
         ProductoDAO productoDAO = new ProductoDAO(this.id);
-        ResultSet resultado = conexion.consultar(
+        ResultSet resultado = conexion.ConsultConnection(
         productoDAO.consultar());
         try {
             if (resultado.next()){
@@ -76,17 +76,17 @@ public class Producto {
         }
     }
     
-    public String actualizar() {
+    public String UpdateProduct() {
         Conexion conexion = new Conexion();
         ProductoDAO productoDAO = new ProductoDAO(this.id,
         this.nombre, this.cantidad, this.precio);
-        return conexion.ejecutar(productoDAO.actualizar());
+        return conexion.ExecuteQuery(productoDAO.actualizar());
     }
     
-    public String[][] buscar(String filtro){
+    public String[][] FindProduct(String filtro){
         Conexion con = new Conexion();
         ProductoDAO productoDAO = new ProductoDAO();
-        ResultSet resultado=con.consultar(productoDAO.buscar(filtro));
+        ResultSet resultado=con.ConsultConnection(productoDAO.buscar(filtro));
         String[][] datos = null;
         try{
             resultado.last();
@@ -116,7 +116,7 @@ public class Producto {
         String SQL = "select * from producto where nombre='"+this.nombre+"' and cantidad='"+this.cantidad+"' and precio='"+this.precio+"'";
         
         try{
-            ResultSet resultado = conexion.consultar(SQL);
+            ResultSet resultado = conexion.ConsultConnection(SQL);
             
             if(resultado.next()){
                 this.id = resultado.getInt("id");
@@ -131,7 +131,7 @@ public class Producto {
         Conexion conexion = new Conexion();
         String SQL = "select * from producto where nombre='"+nombre+"'";
         try{
-            ResultSet resultado = conexion.consultar(SQL);
+            ResultSet resultado = conexion.ConsultConnection(SQL);
             
             if(resultado.next()){
                 System.out.println("Este producto ya existe");

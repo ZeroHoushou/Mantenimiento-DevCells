@@ -85,7 +85,7 @@ public class ControladorPrincipal {
                 float precio = Float.parseFloat(vista.txtPrecioProducto.getText());
                 try {
                     Producto product = new Producto(id, nombre, cantidad, precio);
-                    product.actualizar();
+                    product.UpdateProduct();
                 } catch (InvalidNombreException ex) {
                     JOptionPane.showMessageDialog(vista, "Ese producto ya esta registrado");
                 }
@@ -99,7 +99,7 @@ public class ControladorPrincipal {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Producto product = new Producto(Integer.parseInt(vista.txtCodigoProducto.getText()));
-                product.consultar();
+                product.ConsultProduct();
                 vista.btnActualizarProducto.setEnabled(true);
                 vista.btnEliminarProducto.setEnabled(true);
                 vista.btnAgregarProducto.setEnabled(false);

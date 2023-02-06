@@ -59,7 +59,7 @@ public class ControladorEditarProducto {
                 String SQL = "{call updated_producto(?,?,?)}";
                 CallableStatement stmt = null;
                 
-                try(Connection conn = conectar.conectarMySQL() ){
+                try(Connection conn = conectar.connectMySQL() ){
             
                     stmt = conn.prepareCall(SQL);
                     stmt.setString(1,vista.txtCodigo.getText());
@@ -155,7 +155,7 @@ public class ControladorEditarProducto {
         
         CallableStatement stmt = null;
         //String[][] datos = null;
-        try(Connection conn = con.conectarMySQL() ){
+        try(Connection conn = con.connectMySQL() ){
            
             stmt = conn.prepareCall(SQL);
             
@@ -167,7 +167,7 @@ public class ControladorEditarProducto {
             while(rs.next()){
                 datos[i][0]= rs.getString("codigo");
                 Accesorio producto = new Accesorio(datos[i][0]);
-                System.out.println(producto.consultar());
+                System.out.println(producto.ConsultProduct());
                 datos[i][1]= producto.getNombre();               
                 datos[i][2]= String.valueOf(producto.getDescripcion());
                 datos[i][3]= rs.getString("cantidad");

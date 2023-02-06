@@ -67,7 +67,7 @@ public class ControladorGuiadeVenta {
                         String texto2 = vista.tblLista.getValueAt(i, 3).toString();
                         int cant = Integer.parseInt(texto2);
                         GuiaVentaporProducto ventaporproducto = new GuiaVentaporProducto(venta,texto,cant);
-                        System.out.println(ventaporproducto.insertar());
+                        System.out.println(ventaporproducto.InsertGuideSale());
                     }
                 
                 }
@@ -292,7 +292,7 @@ public class ControladorGuiadeVenta {
                 
                     CallableStatement stmt = null;
                     String[] datos = null;
-                try(Connection conn = con.conectarMySQL() ){
+                try(Connection conn = con.connectMySQL() ){
            
                     stmt = conn.prepareCall(SQL);
                     stmt.setString(1,vista.txtDni.getText());

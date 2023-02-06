@@ -204,7 +204,7 @@ public class frmMantenimientoUsuario extends javax.swing.JFrame {
         if( fila >= 0 ){
             int idModificar = Integer.parseInt(tblUsuarios.getValueAt(fila, 0).toString());
             usuario = new Usuario(idModificar);
-            System.out.println(usuario.consultar());
+            System.out.println(usuario.ConsultUser());
             this.txtUsuario.setText(usuario.getLogin());
             this.txtEmail.setText(usuario.getEmail());
             this.txtContraseña.setText(usuario.getContraseña());
@@ -230,7 +230,7 @@ public class frmMantenimientoUsuario extends javax.swing.JFrame {
                 
                 usuario = new Usuario(usuario.getCodigo(), cboPerfil.getSelectedItem().toString(), txtUsuario.getText(), txtContraseña.getText(),txtEmail.getText(), jCheckBox1.isSelected(), usuario.isConectado());
                 
-                System.out.println(usuario.actualizar());
+                System.out.println(usuario.UpdateUser());
                 System.out.println(usuario);
                 JOptionPane.showMessageDialog(this,"Usuario modificado", "Guardar Usuario" , JOptionPane.INFORMATION_MESSAGE );
                 usuario = null;
@@ -244,7 +244,7 @@ public class frmMantenimientoUsuario extends javax.swing.JFrame {
                 try{
                 Usuario u = new Usuario(cboPerfil.getSelectedItem().toString(), txtUsuario.getText(), txtContraseña.getText(),txtEmail.getText(), jCheckBox1.isSelected());
                 
-                System.out.println(u.insertar());
+                System.out.println(u.InsertUser());
                 System.out.println(u);
                 limpiarControles();
                 JOptionPane.showMessageDialog(this,"Usuario guardado", "Guardar Usuario" , JOptionPane.INFORMATION_MESSAGE );

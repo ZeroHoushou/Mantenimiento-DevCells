@@ -47,7 +47,7 @@ public class Conexion {
     /*El método abrirConexión permite que el atributo connection cree
 una conexión con la base de datos y que el atributo statement cree un
 objeto que permita enviar sentencias SQL a la base de datos.*/
-    private void abrirConexion(){
+    private void OpenConnection(){
         try {
             Class.forName(this.jdbc);
             this.connection = DriverManager.getConnection(this.ruta,this.usuario,this.contra);
@@ -64,9 +64,9 @@ parámetro, con base en la conexión abierta por medio del método
 excecuteUpdate. Esta sentencia debe ser necesariamente insert,
 update o delete. Este método debe manejar la excepción SQLException,
 la cual permite controlar casos de excepción*/
-    public String ejecutar(String sentencia){
+    public String ExecuteQuery(String sentencia){
         try{
-            this.abrirConexion();
+            this.OpenConnection();
             this.statement.executeUpdate(sentencia);
             return "Op Exitosa";
         }catch(SQLException e){
@@ -81,10 +81,10 @@ excecuteQuery. Esta sentencia debe ser necesariamente select, debido
 a que retorna información a través de un objeto Resulset. Este método
 debe manejar la excepción SQLException, la cual permite controlar
 casos de excepción*/
-    public ResultSet consultar(String sentencia){
+    public ResultSet ConsultConnection(String sentencia){
         ResultSet resultado=null;
         try{
-            this.abrirConexion();
+            this.OpenConnection();
             resultado = statement.executeQuery(sentencia);
         }catch(SQLException e){
             e.printStackTrace();
@@ -104,7 +104,7 @@ casos de excepción*/
         return (CallableStatement) resultado;
     }*/
     
-   public Connection conectarMySQL(){
+   public Connection connectMySQL(){
        Connection conn = null;
        try{
            Class.forName(jdbc);
